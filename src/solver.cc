@@ -60,13 +60,35 @@ BFSMazeSolver::solve_maze(Maze& maze)
 }
 //=====================================
 
-MazeSolver::~MazeSolver()
+class DFSMazeSolver : public MazeSolver
 {
+public:
+    virtual ~DFSMazeSolver()
+    {
+    }
+    virtual bool solve_maze(Maze& maze);
+};
+
+bool
+DFSMazeSolver::solve_maze(Maze& maze)
+{
+    return false;
 }
+//=====================================
+
+
 
 std::shared_ptr<MazeSolver>
-MazeSolver::get_solver(MazeSolverType)
+MazeSolver::get_solver(const MazeSolverType& t)
 {
-    return std::shared_ptr<MazeSolver>
-    (static_cast<MazeSolver*> (new BFSMazeSolver()));
+    MazeSolver* solverPtr = nullptr;
+    switch (t) {
+    case MAZE_SOLVER_DFS:
+        solverPtr = static_cast<MazeSolver*> (new DFSMazeSolver());
+        break;
+    default:
+        solverPtr = static_cast<MazeSolver*> (new BFSMazeSolver());
+        break;
+    }
+    return std::shared_ptr<MazeSolver>(solverPtr);
 }
