@@ -4,6 +4,7 @@
 #include <solver.hpp>
 #include <maze.hpp>
 #include <render.hpp>
+#include <music.hpp>
 
 #include <memory>
 
@@ -16,7 +17,7 @@ public:
     Application() :
         m_mazeGenerator(RandomMazeGenerator::get_generator()),
         m_mazeSolver(MazeSolver::get_solver(MAZE_SOLVER_BFS)),
-        m_renderer(new Renderer())
+        m_renderer(new Renderer()), m_mplayer(MPlayer::GetMPlayer())
     {
     }
 
@@ -36,6 +37,6 @@ protected:
     std::shared_ptr<RandomMazeGenerator> m_mazeGenerator;
     std::shared_ptr<MazeSolver> m_mazeSolver;
     std::shared_ptr<Renderer> m_renderer;
-
+    MPlayer& m_mplayer;
     Maze m_maze;
 };
