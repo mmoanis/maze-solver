@@ -7,7 +7,7 @@
 int
 Application::run()
 {
-    std::cout << "GENERATING MAZE WITH DIM: " << MAZE_DIM << ':' << MAZE_DIM << std::endl;
+    std::cout << "GENERATING MAZE WITH DIM: " << MAZE_DIM_X << 'x' << MAZE_DIM_Y << std::endl;
     if (!m_mazeGenerator->generate_maze(m_maze))
     {
         std::cerr << "FAILED TO GENERATE MAZE." << std::endl;
