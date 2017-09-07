@@ -164,17 +164,12 @@ GreedyMazeSolver::CostFunction(const Maze& maze, const MazeCoord& coord)
 std::shared_ptr<MazeSolver>
 MazeSolver::get_solver(const MazeSolverType& t)
 {
-    MazeSolver* solverPtr = nullptr;
     switch (t) {
     case MAZE_SOLVER_DFS:
-        solverPtr = static_cast<MazeSolver*> (new DFSMazeSolver());
-        break;
+        return std::static_pointer_cast<MazeSolver> (std::make_shared<DFSMazeSolver> ());
     case MAZE_SOLVER_GREEDY:
-        solverPtr = static_cast<MazeSolver*> (new GreedyMazeSolver());
-        break;
+        return std::static_pointer_cast<MazeSolver> (std::make_shared<GreedyMazeSolver> ());
     default:
-        solverPtr = static_cast<MazeSolver*> (new BFSMazeSolver());
-        break;
+        return std::static_pointer_cast<MazeSolver> (std::make_shared<BFSMazeSolver> ());
     }
-    return std::shared_ptr<MazeSolver>(solverPtr);
 }

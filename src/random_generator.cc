@@ -55,8 +55,5 @@ DFSRandomMazeGenerator::generate_maze(Maze& maze)
 std::shared_ptr<RandomMazeGenerator>
 RandomMazeGenerator::get_generator(/*RandomMazeGenerator::GeneratorTypes*/)
 {
-    //return shared_ptr<DFSRandomMazeGenerator> (new DFSRandomMazeGenerator());
-    return std::shared_ptr<RandomMazeGenerator> (
-                                                 static_cast<RandomMazeGenerator*> (new DFSRandomMazeGenerator())
-                                                                );
+    return std::static_pointer_cast<RandomMazeGenerator> (std::make_shared<DFSRandomMazeGenerator> ());
 }
