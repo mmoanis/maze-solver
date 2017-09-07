@@ -13,12 +13,22 @@ enum MAZE_TILE_TYPE
     MAZE_TILE_PATHABLE = ' ',
     MAZE_TILE_START = 'S',
     MAZE_TILE_END = 'E',
-    MAZE_TILE_PATHED = '.'
+    MAZE_TILE_PATHED = 'x',
+    MAZE_TILE_EXPLORED = '.'
+};
+
+struct MazeCoord
+{
+    int X;
+    int Y;
+
+    MazeCoord(int x, int y) : X(x), Y(y) {}
+
+    friend std::ostream& operator<<(const std::ostream& out, const MazeCoord& coord);
 };
 
 struct Maze
 {
-
     using MazeImpl = std::array<unsigned char, MAZE_SIZE_ARRAY>;
     MazeImpl m_maze;
     MazeImpl::size_type Start, End;
@@ -40,17 +50,16 @@ struct Maze
         return m_maze;
     }
 
-    const std::pair<int, int> IndexAsPair(const int &i) const
+    MazeCoord IndexAsCoord(const int &i) const
     {
         const int y = (int) (i / MAZE_DIM_X);
 		const int x = i - (y * MAZE_DIM_Y);
-		//std::cout << x << ' ' << y << ' ' << i << std::endl;
-		return std::make_pair(x, y);
+		return {x, y};
 
     }
-    const int PairAsIndex(std::pair<int, int> &p) const
+    const int CoordAsIndex(const MazeCoord &p) const
     {
-        return p.first + p.second * MAZE_DIM_Y;
+        return p.X + p.Y * MAZE_DIM_Y;
     }
 
     bool ValidIndex(const int &i) const
@@ -58,10 +67,10 @@ struct Maze
         return i >= 0 && i < m_maze.size();
     }
 
-    bool ValidPair(const std::pair<int, int> & p) const
+    bool ValidCoord(const MazeCoord & p) const
     {
-        return p.first >= 0 && p.first < MAZE_DIM_X
-        && p.second >= 0 && p.second < MAZE_DIM_Y;
+        return p.X >= 0 && p.X < MAZE_DIM_X
+        && p.Y >= 0 && p.Y < MAZE_DIM_Y;
     }
 
     /////
@@ -78,3 +87,10 @@ struct Maze
         }
     }
 };
+
+inline std::ostream& operator<<(std::ostream& out, const MazeCoord &coord)
+{
+    out << '(' << coord.X << ',' << coord.Y <<  ')';
+    return out;
+}
+

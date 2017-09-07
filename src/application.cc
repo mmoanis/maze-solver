@@ -18,7 +18,7 @@ Application::run()
     m_maze.print(std::cout);
 
 
-    std::cout << "STARTING MAZE SOLVER." << std::endl;
+    m_mazeSolver->init(m_maze);
     if (!m_mazeSolver->solve_maze(m_maze))
     {
         std::cerr << "FAILED TO SOLVE MAZE." << std::endl;
