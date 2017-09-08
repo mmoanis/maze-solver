@@ -51,4 +51,3 @@ build/*
 Generator/bin/*
 Generator/obj/*
 external/*
-*.txt
