@@ -10,7 +10,7 @@
 void
 MazeSolver::init(const Maze& maze)
 {
-    std::cout << m_name << "MAZE SOLVER STARTING ...\nMAZE START: " << maze.IndexAsCoord(maze.Start) <<
+    std::cout << m_name << " MAZE SOLVER STARTING ...\nMAZE START: " << maze.IndexAsCoord(maze.Start) <<
 	"MAZE END: " << maze.IndexAsCoord(maze.End) << std::endl;
 }
 
@@ -149,11 +149,12 @@ GreedyMazeSolver::CostFunction(const Maze& maze, const MazeCoord& coord)
     static struct EcludiandDistance{
 	    double operator() (const MazeCoord &F, const MazeCoord &S)
 	    {
-	        return std::sqrt(
-                          ((S.X-F.X)*(S.X-F.X))
+	        return //std::sqrt(
+                        std::abs  ((S.X-F.X))
                           +
-                          ((S.Y-F.Y)*(S.Y-F.Y))
-                          );
+                         std::abs ((S.Y-F.Y))
+                         // )
+                         ;
 	    }
 	} EDCalc;
 
